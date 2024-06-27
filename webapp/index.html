@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Suhu dari Proteus</title>
+</head>
+<body>
+    <h1>Sensor Deteksi Api</h1>
+    <div id="suhu-container">Status sensor: MATI</div>
+
+    <script>
+        function fetchData() {
+            fetch('/api/data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('suhu-container').innerText = `Status sensor: ${data.sensor_status=='true' ? 'MENYALA' : 'MATI'}`;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        fetchData();
+        setInterval(fetchData, 2000);
+    </script>
+</body>
+</html>
